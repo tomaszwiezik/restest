@@ -133,12 +133,12 @@ const http = new Http({
         }
     });
     // The response: { "token": "kl43h54h5k4j3h5kj34h5k3" }
-    **http.authentication(new BearerAuthentication(response.payload.token));**
+    http.authentication(new BearerAuthentication(response.payload.token));
     // Since now on, all subsequent request headers will be appended with `Authorization: Bearer kl43h54h5k4j3h5kj34h5k3`
 }
 
 // To disable authentication
-**http.authentication(new BearerAuthentication(undefined));**
+http.authentication(new BearerAuthentication(undefined));
 ```
 
 
