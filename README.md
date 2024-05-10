@@ -38,9 +38,27 @@ Imports:
 
 Http client creation options:
 * `baseUrl` - if provided, then relative URLs can be used in requests
-* `defaultContentType` - if provided then it is used as a `Content-Type` header with each request, unless specified otherwise in the request
+* `defaultContentType` - if provided then it is used as a `Content-Type` header in each request, unless specified otherwise in the request
+
+> [!NOTE]
+> It is still possible to use full URL in a request, even if `baseUrl` option is used. If the URL starts with the `baseUrl`, then the latter is ignored.
 
 ## Web requests
+
+A generic function for sending requests:
+```
+Http.sendRequest(method, url, options);
+```
+
+There exist also a buch of helper functions:
+```
+Http.delete(url, options)    // equivalent of: Http.sendRequest('DELETE', url, options);
+Http.get(url, options)       // equivalent of: Http.sendRequest('GET', url, options);
+Http.options(url, options)   // equivalent of: Http.sendRequest('OPTIONS', url, options);
+Http.patch(url, options)     // equivalent of: Http.sendRequest('PATCH', url, options);
+Http.post(url, options)      // equivalent of: Http.sendRequest('POST', url, options);
+Http.put(url, options)       // equivalent of: Http.sendRequest('PUT', url, options);
+```
 
 
 ## Bearer authentication
