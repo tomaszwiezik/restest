@@ -138,7 +138,7 @@ const http = new Http({
 }
 
 // To disable authentication
-http.authentication(new BearerAuthentication(undefined));
+http.authentication(undefined);
 ```
 
 
@@ -148,7 +148,7 @@ Assertions are available as static method of `Assert` class, which must be impor
 
 The following assertions can be used (`message` is always optional):
 * `Assert.areEqual(expected, actual, message)` - fails when `expected` <> `actual`
-* `Assert.areNoEqual(notExpected, actual, message)` - fails when `notExpected` == `actual`
+* `Assert.areNotEqual(notExpected, actual, message)` - fails when `notExpected` == `actual`
 * `Assert.isTrue(condition, message)` - fails when `condition` is false
 * `Assert.isFalse(condition, message)` - fails when `condition` is true
 
