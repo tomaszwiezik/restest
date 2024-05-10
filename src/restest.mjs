@@ -23,6 +23,9 @@ export class Http {
     constructor(options) {
         this.#baseUrl = options?.baseUrl ? options?.baseUrl : '';
         this.#defaultContentType = options?.defaultContentType ? options?.defaultContentType : '';
+        if (options?.acceptSelfSignedCertificate === true) {
+            process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+        }
     }
 
     #baseUrl = undefined;

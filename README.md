@@ -13,7 +13,7 @@ Node.js based web API tester utility. Available javascript modules are the follo
 node myscript.mjs
 ```
 
-If the script fails, the error message is written to the error and error code is returned:
+If the script fails, the error message is written to the error output and the error code 1 is returned:
 ```
 node <myscript>.mjs
 IF ERRORLEVEL 1 ECHO Script executed wiht error
@@ -26,6 +26,7 @@ import { Http, BearerAuthentication } from './restest/restest.mjs';
 import { Assert } from '../restest/diagnostics.mjs';
 
 const http = new Http({
+    acceptSelfSignedCertificate: true,
     baseUrl: 'http://some.url/api',
     defaultContentType: 'application/json; charset=UTF-8'
 });
@@ -37,6 +38,7 @@ Imports:
 * `Asser` - optional, assertions
 
 Http client creation options:
+* `acceptSelfSignedCertificate` - set to `true` to accept self-signed certificate; not recommended in production environment
 * `baseUrl` - if provided, then relative URLs can be used in requests
 * `defaultContentType` - if provided then it is used as a `Content-Type` header in each request, unless specified otherwise in the request
 
@@ -68,7 +70,7 @@ Http.put(url, options)       // equivalent of: Http.sendRequest('PUT', url, opti
 
 ### Example
 
-In the example every request is within a curly braces `{...}`, making the `response` limited to that scope.
+In the example every request is enclosed with curly braces `{...}`, making the `response` limited to that scope.
 
 ```
 import { Http } from './restest/restest.mjs';
@@ -144,7 +146,7 @@ http.authentication(undefined);
 
 ## Assertions
 
-Assertions are available as static method of `Assert` class, which must be imported from `diagnostics.mjs` module. If an assertion fails, the execution of the script is interrupted and error code is returned.
+Assertions are available as static methods of the `Assert` class, which must be imported from `diagnostics.mjs` module. If an assertion fails, the execution of the script is interrupted and the error code is returned.
 
 The following assertions can be used (`message` is always optional):
 * `Assert.areEqual(expected, actual, message)` - fails when `expected` <> `actual`
