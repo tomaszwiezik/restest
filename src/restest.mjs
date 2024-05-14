@@ -82,7 +82,7 @@ export class Http {
             }    
         }
         for (const headerName in options?.headers) {
-            request.headers[headerName] = authenticationHeaders[headerName];
+            request.headers[headerName] = options.headers[headerName];
         }
         if (this.#authentication) {
             const authenticationHeaders = this.#authentication.getHeaders();
