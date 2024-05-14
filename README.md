@@ -54,7 +54,7 @@ Http.sendRequest(method, url, options);
 ```
 
 It returns a `response` object (as retured by `fetch`), but extended with a few new properties:
-* `payload` - the response body; if `Content-Type` header is `application/josn`, then parsed response JSON is stored here, otherwise it's the response body in textual form
+* `payload` - the response body; if `Content-Type` header is `application/json`, then parsed response JSON is stored here, otherwise it's the response body in textual form
 * `response.header.contentType` - the value of `Content-Type` header, if one exists
 * `response.header.location` - the value of `Location` header, if one exists
 
@@ -169,6 +169,6 @@ const http = new Http();
     Assert.areEqual(200, response.status, 'HTTP status code');
     Assert.areNotEqual(500, response.status, 'HTTP status code');
     Assert.isTrue(response.status == 200, 'HTTP status code');
-    Assert.isFalse(response.status != 500, 'HTTP status code');
+    Assert.isFalse(response.status != 200, 'HTTP status code');
 }
 ```
