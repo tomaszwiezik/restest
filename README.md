@@ -21,7 +21,7 @@ IF ERRORLEVEL 1 ECHO Script executed wiht error
 
 ## Web client configuration
 
-```
+```javascript
 import { Http, BearerAuthentication } from './restest/restest.mjs';
 import { Assert } from '../restest/diagnostics.mjs';
 
