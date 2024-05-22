@@ -49,7 +49,7 @@ Http client creation options:
 ## Web requests
 
 A generic function for sending requests:
-```
+```javascript
 Http.sendRequest(method, url, options);
 ```
 
@@ -59,7 +59,7 @@ It returns a `response` object (as retured by `fetch`), but extended with a few 
 * `response.header.location` - the value of `Location` header, if one exists
 
 There also exist a buch of helper functions:
-```
+```javascript
 Http.delete(url, options)    // equivalent of: Http.sendRequest('DELETE', url, options);
 Http.get(url, options)       // equivalent of: Http.sendRequest('GET', url, options);
 Http.options(url, options)   // equivalent of: Http.sendRequest('OPTIONS', url, options);
@@ -72,7 +72,7 @@ Http.put(url, options)       // equivalent of: Http.sendRequest('PUT', url, opti
 
 In the example every request is enclosed with curly braces `{...}`, making the `response` limited to that scope.
 
-```
+```javascript
 import { Http } from './restest/restest.mjs';
 
 const http = new Http({
@@ -118,7 +118,7 @@ const http = new Http({
 
 ## Bearer authentication
 
-```
+```javascript
 import { Http, BearerAuthentication } from '../restest/restest.mjs';
 
 const http = new Http({
@@ -156,7 +156,7 @@ The following assertions can be used (`message` is always optional):
 
 ### Example
 
-```
+```javascript
 import { Http } from '../restest/restest.mjs';
 import { Assert } from '../restest/diagnostics.mjs';
 
