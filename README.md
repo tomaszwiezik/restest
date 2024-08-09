@@ -180,9 +180,9 @@ const http = new Http();
 Documentation functions are available as static methods of `Doc` class and are designated to add descriptions to the output.
 
 The following functions are available:
-* `Doc.summary(text)` - 
-* `Doc.text(text)` -
-* `Doc.todo(text)` - 
+* `Doc.summary(text)` - a summary text block
+* `Doc.text(text)` - any text
+* `Doc.todo(text)` - a TODO statement
 
 ### Example
 
