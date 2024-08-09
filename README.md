@@ -23,7 +23,7 @@ IF ERRORLEVEL 1 ECHO Script executed wiht error
 
 ```javascript
 import { Http, BearerAuthentication } from './restest/restest.mjs';
-import { Assert } from '../restest/diagnostics.mjs';
+import { Assert, Doc } from '../restest/diagnostics.mjs';
 
 const http = new Http({
     acceptSelfSignedCertificate: true,
@@ -35,7 +35,8 @@ const http = new Http({
 Imports:
 * `Http` - the web client
 * `BearerAuthentication` - optional, bearer authentication
-* `Asser` - optional, assertions
+* `Assert` - optional, assertions
+* `Dic` - optional, documentation tags
 
 Http client creation options:
 * `acceptSelfSignedCertificate` - set to `true` to accept self-signed certificate; not recommended in production environment
@@ -171,4 +172,40 @@ const http = new Http();
     Assert.isTrue(response.status == 200, 'HTTP status code');
     Assert.isFalse(response.status != 200, 'HTTP status code');
 }
+```
+
+
+## Documentation
+
+Documentation functions are available as static methods of `Doc` class and are designated to add descriptions to the output.
+
+The following functions are available:
+* `Doc.summary(text)` - 
+* `Doc.text(text)` -
+* `Doc.todo(text)` - 
+
+### Example
+
+```javascript
+import { Doc } from '../github/restest/src/diagnostics.mjs';
+
+Doc.summary('summary text');
+Doc.text('some text');
+Doc.todo('a remainder');
+```
+
+The script produces the following output:
+
+```
+SUMMARY:
+--------
+|
+| summary text
+|
+
+
+|
+| some text
+|
+TODO: a remainder
 ```

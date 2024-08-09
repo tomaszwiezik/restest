@@ -1,6 +1,6 @@
 /*
 * (C) Tomasz Wiezik
-* Version: 1.0.0
+* Version: 1.1.0
 */
 
 export class BearerAuthentication {
@@ -51,6 +51,16 @@ export class Http {
             contentType: response.headers.get('content-type'),
             location: response.headers.get('location'),
         };
+        response.cookies = {};
+        if (response.headers.get('set-cookie')) {
+            const cookies = response.headers.get('set-cookie').split(',');
+            for (let i = 0; i < cookies.length; i++) {
+                cookies[i] = cookies[i].trim();
+                cookies[i] = cookies[i].split(';', 1)[0];
+                const cookie = cookies[i].split('=', 2);
+                response.cookies[cookie[0]] = cookie[1];
+            }
+        }
         await this.#showResponse(response);
 
         return response;
@@ -124,7 +134,13 @@ export class Http {
         });
         if (response.payload) {
             console.log('payload:');
-            console.log(response.payload);    
+			console.log(JSON.stringify(response.payload, null, 2))
+        }
+        if (response.cookies) {
+            console.log('cookies:');
+            for (let name in response.cookies) {
+                console.log(`  ${name}: ${response.cookies[name]}`);
+            }
         }
         console.log('');
 
