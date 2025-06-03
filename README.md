@@ -58,6 +58,8 @@ It returns a `response` object (as retured by `fetch`), but extended with a few 
 * `payload` - the response body; if `Content-Type` header is `application/json`, then parsed response JSON is stored here, otherwise it's the response body in textual form
 * `response.header.contentType` - the value of `Content-Type` header, if one exists
 * `response.header.location` - the value of `Location` header, if one exists
+The most commonly used `response` object attributes are the following:
+* `status` - HTTP status code
 
 There also exist a buch of helper functions:
 ```javascript
