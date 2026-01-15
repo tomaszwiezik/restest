@@ -1,6 +1,6 @@
 /*
 * (C) Tomasz Wiezik
-* Version: 1.1.0
+* Version: 1.1.1
 */
 
 export class BearerAuthentication {
@@ -39,6 +39,8 @@ export class Http {
 
 
 	async sendRequest(method, url, options) {
+		const startTime = new Date();
+		
         const request = this.#getRequest(method, options);
         await this.#showRequest(url, request);
 		
@@ -61,6 +63,7 @@ export class Http {
                 response.cookies[cookie[0]] = cookie[1];
             }
         }
+		response.duration = (new Date()) - startTime;
         await this.#showResponse(response);
 
         return response;
@@ -127,7 +130,7 @@ export class Http {
 
     async #showResponse(response) {
         console.log('');
-        console.log(`<-- RESPONSE: ${response.status} (${response.statusText})`);
+        console.log(`<-- RESPONSE: ${response.status} (${response.statusText}), duration: ${response.duration} ms`);
         console.log('headers:');
         response.headers.forEach((value, key, map) => {
             console.log(`  ${key}: ${value}`);
