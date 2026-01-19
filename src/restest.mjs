@@ -1,7 +1,28 @@
 /*
 * (C) Tomasz Wiezik
-* Version: 1.1.1
+* Version: 1.2.0
 */
+
+
+export class Args {
+	static parse() {
+		for (const token of process.argv.slice(2)) {
+			if (token.startsWith('--')) {
+				const parts = token.slice(2).split('=');
+				if (parts.length > 2) parts[1] = parts.slice(1).join('=');
+				const [key, val] = parts;
+				Args[key] = val !== undefined ? val : true;
+			}
+			else {
+				Args._.push(token); // positional
+			}
+		}
+	}
+	
+	static _ = [];
+}
+Args.parse();
+
 
 export class BearerAuthentication {
     constructor(token) {
@@ -21,13 +42,21 @@ export class BearerAuthentication {
 
 export class Http {
     constructor(options) {
-        this.#baseUrl = options?.baseUrl ? options?.baseUrl : '';
-        this.#defaultContentType = options?.defaultContentType ? options?.defaultContentType : '';
+        this.#baseUrl = options?.baseUrl ?? '';
+        this.#defaultContentType = options?.defaultContentType ?? '';
         if (options?.acceptSelfSignedCertificate === true) {
             process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
         }
+		this.#id = Http.#counter++;
+		
+		console.log(`[http-${this.#id}]`);
+		console.log(`  baseUrl: ${this.#baseUrl}`);
+		console.log(`  defaultContentType: ${this.#defaultContentType}`);
+		console.log('');
     }
 
+	static #counter = 1;
+	#id = undefined;
     #baseUrl = undefined;
     #defaultContentType = undefined;
     #authentication = undefined;
@@ -109,7 +138,7 @@ export class Http {
 
     async #showRequest(url, request) {
         console.log('');
-        console.log(`--> REQUEST: ${request.method} ${this.#getFullUrl(url)}`);
+        console.log(`--> REQUEST [http-${this.#id}]: ${request.method} ${this.#getFullUrl(url)}`);
         console.log('headers:');
         for (const property in request.headers) {
             console.log(`  ${property}: ${request.headers[property]}`);
@@ -130,7 +159,7 @@ export class Http {
 
     async #showResponse(response) {
         console.log('');
-        console.log(`<-- RESPONSE: ${response.status} (${response.statusText}), duration: ${response.duration} ms`);
+        console.log(`<-- RESPONSE [http-${this.#id}]: ${response.status} (${response.statusText}), duration: ${response.duration} ms`);
         console.log('headers:');
         response.headers.forEach((value, key, map) => {
             console.log(`  ${key}: ${value}`);
@@ -149,6 +178,4 @@ export class Http {
 
         return response;
     }
-
-
 }

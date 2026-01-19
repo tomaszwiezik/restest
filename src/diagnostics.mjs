@@ -28,7 +28,7 @@ export class Assert {
 
 export class Doc {
 	
-	static summary = (text) => Doc.#write('SUMMARY:\n--------', text, '| ');
+	static summary = (text) => Doc.#write('[ -- SUMMARY -- ]', text, '| ');
 	static text = (text) => Doc.#write('', text, '| ');
 	static todo = (text) => console.log(`TODO: ${text}`);
 	
@@ -41,7 +41,6 @@ export class Doc {
 			console.log(prepend + lines[i]);
 		}
 		if (prepend) console.log(prepend);
-		if (header) console.log('');
 		if (header) console.log('');
 	}
 	

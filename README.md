@@ -1,8 +1,8 @@
 # Summary
 
 Node.js based web API tester utility. Available javascript modules are the following:
-* `diagnostics.mjs` - assertions, classes: `Assert`
-* `restest.mjs` - HTTP client and authorization, classes: `Http`, `BearerAuthentication`
+* `diagnostics.mjs` - assertions, classes: `Assert`, `Doc`
+* `restest.mjs` - HTTP client and authorization, classes: `Http`, `Args`, `BearerAuthentication`
 
 
 # Usage
@@ -120,6 +120,27 @@ const http = new Http({
 ```
 
 
+## Input arguments
+
+Input parameters are accessible by static attributes of `Args` class imported from `restest.mjs`.
+Parsing rules are the following:
+* Arguments prepended with double hyphen (`--`) are options. Each option can have a value specified after the `=` separator. If the value is not provided, then the option gets a boolean value of true.
+* Other arguments are interpreted as positional ones and appended to `Args._` attribute.
+
+
+### Example
+
+```javascript
+// input parameters: p1 p2 --opt1=5=a --opt2 p3
+
+import { Args } from '../restest/restest.mjs';
+
+console.log(Args);
+
+// result: [class Args] { _: [ 'p1', 'p2', 'p3' ], opt1: '5=a', opt2: true }
+```
+
+
 ## Bearer authentication
 
 ```javascript
@@ -193,6 +214,9 @@ The following functions are available:
 import { Doc } from '../github/restest/src/diagnostics.mjs';
 
 Doc.summary('summary text');
+Doc.summary(`
+	multiline
+	summary text`);
 Doc.text('some text');
 Doc.todo('a remainder');
 ```
@@ -200,9 +224,15 @@ Doc.todo('a remainder');
 The script produces the following output:
 
 ```
-SUMMARY:
---------
+[ -- SUMMARY -- ]
 |
+| summary text
+|
+
+
+[ -- SUMMARY -- ]
+|
+| multiline
 | summary text
 |
 
