@@ -1,6 +1,6 @@
 /*
 * (C) Tomasz Wiezik
-* Version: 1.2.0
+* Version: 1.2.1
 */
 
 
@@ -146,7 +146,7 @@ export class Http {
         if (request.body) {
             console.log('payload:');
             if (request.headers['Content-type']?.toLowerCase().startsWith('application/json;')) {
-                console.log(JSON.parse(request.body));    
+                console.log(JSON.stringify(JSON.parse(request.body), null, 2));
             }
             else {
                 console.log(request.body);
@@ -166,7 +166,7 @@ export class Http {
         });
         if (response.payload) {
             console.log('payload:');
-			console.log(JSON.stringify(response.payload, null, 2))
+			console.log(JSON.stringify(response.payload, null, 2));
         }
         if (response.cookies) {
             console.log('cookies:');
